@@ -27,6 +27,7 @@ Then run this sequence of commands to generate the CA and server certificate and
 ```
 openssl genrsa -out ca-key.pem 2048
 openssl req -x509 -new -nodes -key ca-key.pem -subj "/CN=root-ca" -days 10000 -sha256 -out ca.pem
+openssl genrsa -out etcd-key.pem 2048
 openssl req -subj '/CN=etcd.dev.iktech.io' -new -sha256 -key etcd-key.pem -out etcd.csr -config etcd.ext
 openssl x509 -req -in etcd.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out etcd.pem -days 7200 -sha256 -extensions v3_req -extfile etcd.ext
 ```
