@@ -52,4 +52,10 @@ Then run the following command to start etcd server with Docker.
   --initial-cluster node1=https://$NODE1:2382
 ```
 
+If Docker running in Windows environment run the following (in PowerShell):
+```
+$NODE1="<your_ip_address>"
+docker run -p 2378:2379 -p 2382:2380 -d -v etcd-data:/etcd-data -v ${PWD}/certs:/etc/ssl/etcd --name etcd quay.io/coreos/etcd:latest /usr/local/bin/etcd --data-dir=/etcd-data --name node1 --cert-file=/etc/ssl/etcd/etcd.pem --key-file=/etc/ssl/etcd/etcd-key.pem --peer-cert-file=/etc/ssl/etcd/etcd.pem --peer-key-file=/etc/ssl/etcd/etcd-key.pem --trusted-ca-file=/etc/ssl/etcd/ca.pem --peer-trusted-ca-file=/etc/ssl/etcd/ca.pem --peer-client-cert-auth --client-cert-auth --initial-advertise-peer-urls https://${NODE1}:2382 --listen-peer-urls https://0.0.0.0:2380 --advertise-client-urls https://${NODE1}:2378 --listen-client-urls https://0.0.0.0:2379 --initial-cluster node1=https://${NODE1}:2382
+```
+
 Check connection with the following command `etcdctl --cacert=./certs/ca.pem --cert=./certs/etcd.pem --key=./certs/etcd-key.pem --endpoints=https://${NODE1}:2378 member list `.
