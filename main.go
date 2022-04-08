@@ -12,9 +12,9 @@ import (
 )
 
 func main() {
-	var etcdCert = "./certs/etcd-client.pem"
-	var etcdCertKey = "./ca/etcd-client-key.pem"
-	var etcdCa = "./ca/ca.pem"
+	var etcdCert = "./certs/etcd.pem"
+	var etcdCertKey = "./certs/etcd-key.pem"
+	var etcdCa = "./certs/ca.pem"
 
 	cert, err := tls.LoadX509KeyPair(etcdCert, etcdCertKey)
 	if err != nil {
